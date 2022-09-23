@@ -1,0 +1,28 @@
+mongo db :
+https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-6.0.1-signed.msi
+
+java 17
+https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
+
+
+sts spring 
+https://spring.io/tools#suite-three
+
+
+create react app:
+	
+
+Create react component 
+ npx generate-react-cli component myLogin
+
+add the MyLoginsss component in app component.
+
+
+Installed react json view
+npm install --save react-json-view
+
+
+class vs const
+10
+
+if you don't use state, you should use const which is called stateless function. it's about performance. if you use state, you have to use class. (earlier versions of react) if you upgrade react-native and use hooks, it will be different.
