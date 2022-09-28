@@ -6,7 +6,7 @@ import API from '../../utils/api.js'
 // use the component in your app!
 
 function MyLogin (props){ 
-  React.useEffect(() => { API.get("http://localhost:8080/users/user")
+  React.useEffect(() => { API.get("http://localhost:8080/myshopping/user")
   .then(response => console.log(response.name))
   }, []); // <-- Have to pass in [] here!
  
@@ -15,27 +15,23 @@ function MyLogin (props){
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addPosts(userName, password);
+    addPosts();
  }; 
-  const addPosts = async(userName, password) =>{
-      let res = await fetch("http://localhost:8080/users/createUser", 
+
+  const addPosts = async() =>{
+    let item = {userName, password};
+      let res = await fetch("http://localhost:8080/myshopping/createUser", 
       {
         method : 'POST',
-        mode: 'no-cors',
-        body : JSON.stringify({
-        userName: userName,
-        password: password
-      }),
       headers: {
-        'Content-type': 'application/json',
-        'Access-Control-Allow-Origin' : 'http://localhost:8080/users/createUser',
-        'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-        'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-     }
+        'Content-Type': 'application/json',
+       'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+     },
+     body : JSON.stringify(item)
     });
-   let resJson = await  res.json().then(console.log("hello"));
-    console.log(resJson);
+   res = await  res.json();
+    console.log(res);
 }
 return (
 <>
