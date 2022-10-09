@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
-import './myLogin.css';
+import './registration.css';
 import API from '../../utils/api.js'
-// use the component in your app!
 
-function MyLogin (props){ 
-  React.useEffect(() => { API.get("http://localhost:8080/users/user")
+ function Registration(props) {
+  
+  React.useEffect(() => { API.get("http://localhost:8080/registerUser/getRegisteredUser")
   .then(response => console.log(response.name))
   }, []); // <-- Have to pass in [] here!
  
-  const[userName, setUserName] = useState('');
+
+  const[fullName, setFullName] = useState('');
+  const[email, setEmail] = useState('');
   const[password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
-    console.log("hello")
     e.preventDefault();
-    addPosts();
+     registerUser();
  }; 
 
-  const addPosts = async() =>{
-    let item = {userName, password};
-      let res = await fetch("http://localhost:8080/users/createUser", 
+  const registerUser = async() =>{
+     let item = {fullName, email, password};
+      let res = await fetch("http://localhost:8080/registerUser/create", 
       {
         method : 'POST',
       headers: {
@@ -36,12 +37,16 @@ return (
 <>
 <div>
 <form onSubmit={handleSubmit}>
-  <div>
-    <h3>User Login Page </h3>
+   <div>
+    <h3>Register here... </h3>
   </div>
       <label>
-       <b> UserName :</b> <input type="text" value={userName} onChange = {(e) => setUserName(e.target.value)}>
-    </input>
+       <b> FullName :</b> <input type="text" value={fullName} onChange = {(e) => setFullName(e.target.value)}></input>
+      </label> 
+      <br></br>
+      <br></br>
+      <label>
+       <b> Email :</b> <input type="text" value={email} onChange = {(e) => setEmail(e.target.value)}></input>
       </label> 
       <br></br>
       <br></br>
@@ -51,11 +56,10 @@ return (
       <br></br>
       <br></br>
       <button type="Submit">Submit </button>
-      </form>
+</form>
 </div>
 </>
 )
 };
 
-
-export default MyLogin;
+export default Registration;
