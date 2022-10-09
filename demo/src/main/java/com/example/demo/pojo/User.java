@@ -22,6 +22,9 @@ public class User implements Serializable{
 	}
 	@Id
 	String id;
+	String UserId;
 	String userName;
 	String password;
+	String fullName;
+	String email;
 }

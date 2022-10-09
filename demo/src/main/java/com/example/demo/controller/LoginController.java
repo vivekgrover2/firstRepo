@@ -27,50 +27,45 @@ public class LoginController {
 	 * }
 	 */
 
-	@GetMapping("/user")
-	public ResponseEntity<User> usingResponseEntityBuilderAndHttpHeaders() {
+	@GetMapping("/getuser")
+	public ResponseEntity<User> getUserById(@RequestParam String userId) {
 		HttpHeaders responseHeaders = new HttpHeaders();
-		//responseHeaders.set("Access-Control-Allow-Origin", "*");
-
-		return ResponseEntity.ok().headers(responseHeaders).body(new User("1", "vivek", "pass"));
-	}
-	
-	@PostMapping("/userpost")
-	public ResponseEntity<User> userpost() {
-		HttpHeaders responseHeaders = new HttpHeaders();
-//		responseHeaders.set("Access-Control-Allow-Origin", "http://localhost:8080");
-		//responseHeaders.set("Content-Type", "application/json");
-		return ResponseEntity.ok().headers(responseHeaders).body(new User("1", "vivek", "pass"));
+		return ResponseEntity.ok().headers(responseHeaders).body(loginServiceImpl.getUserById(userId));
 	}
 
-	@PostMapping(path = "/createUser")
-	public ResponseEntity<User> userLogin(@RequestBody User user) {
-		
-		System.out.println("inide : createUser----------------------------------- userName"+ user.getUserName()+ " ,password : " + user.getPassword());
-		System.out.println("inide-----------------------------------");
-		HttpHeaders responseHeaders = new HttpHeaders();
-		
-		responseHeaders.set("Access-Control-Allow-Credentials", "true");
-		loginServiceImpl.createUser(user);
-		return ResponseEntity.ok().headers(responseHeaders).body(new User("vivek", "passss"));
-		/*
-		 * if (userName.equals("nida")) { System.out.println("Valid User"); } else {
-		 * System.out.println("Invalid User"); }
-		 */
+	/*
+	 * @PostMapping(path = "/createUser") public ResponseEntity<User>
+	 * userLogin(@RequestBody User user) {
+	 * 
+	 * System.out.
+	 * println("inide : createUser----------------------------------- userName"+
+	 * user.getUserName()+ " ,password : " + user.getPassword());
+	 * System.out.println("inide-----------------------------------"); HttpHeaders
+	 * responseHeaders = new HttpHeaders();
+	 * 
+	 * responseHeaders.set("Access-Control-Allow-Credentials", "true");
+	 * loginServiceImpl.createUser(user); return
+	 * ResponseEntity.ok().headers(responseHeaders).body(new User("vivek",
+	 * "passss"));
+	 * 
+	 * if (userName.equals("nida")) { System.out.println("Valid User"); } else {
+	 * System.out.println("Invalid User"); }
+	 * 
+	 * 
+	 * }
+	 */
 
-	}
-	
 	@PostMapping("/loginUser")
 	public ResponseEntity<String> loginUser(@RequestBody User user) {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		String responseMsg;
-		if(loginServiceImpl.loginUser(user)) {
-			responseMsg= "Login Successfull";;
-		}
-		else {
-			 responseMsg= "Login Failed";
+		if (loginServiceImpl.loginUser(user)) {
+			responseMsg = "Login Successfull";
+			;
+		} else {
+			responseMsg = "Login Failed";
 		}
 		return ResponseEntity.ok().headers(responseHeaders).body(responseMsg);
 	}
-	 
+
 }
